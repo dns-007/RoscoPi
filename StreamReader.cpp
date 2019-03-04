@@ -113,7 +113,7 @@ void StreamReader::situationUpdate( const QString &qsMessage )
         else if( qsTag == "GPSNACp" )
             situation.iGPSNACp = iVal;
         else if( qsTag == "GPSAltitudeMSL" )
-            situation.dGPSAltMSL = fabs( iVal );
+            situation.dGPSAltMSL = fabs( dVal );
         else if( qsTag == "GPSVerticalAccuracy" )
             situation.dGPSVertAccuracy = dVal;
         else if( qsTag == "GPSVerticalSpeed" )

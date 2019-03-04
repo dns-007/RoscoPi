@@ -1040,7 +1040,7 @@ void AHRSCanvas::paintPortrait()
     // Draw the Altitude tape
     ahrs.fillRect( c.dW - c.dW5, 0, c.dW5, c.dH2 - 40.0, QColor( 0, 0, 0, 100 ) );
     ahrs.setClipRect( c.dW - c.dW5 + 1.0, 2.0, c.dW5 - 4.0, c.dH2 - 50 );
-    ahrs.drawPixmap( c.dW - c.dW5 + 5.0, c.dH4 - (static_cast<double>( c.iTinyFontHeight ) * 1.5) - (((20000.0 - g_situation.dBaroPressAlt) / 20000.0) * m_pAltTape->height()) + 7.0, *m_pAltTape );
+    ahrs.drawPixmap( c.dW - c.dW5 + 5.0, c.dH4 - (static_cast<double>( c.iTinyFontHeight ) * 1.5) - (((20000.0 - g_situation.dGPSAltMSL) / 20000.0) * m_pAltTape->height()) + 7.0, *m_pAltTape );
     ahrs.setClipping( false );
 
     // Draw the vertical speed static pixmap
@@ -1079,7 +1079,7 @@ void AHRSCanvas::paintPortrait()
     ahrs.setBrush( Qt::black );
     ahrs.drawRect( c.dW - c.dW5, c.dH4 - (c.iSmallFontHeight / 2), c.dW5 - m_pCanvas->scaledH( 40.0 ), c.iSmallFontHeight + 1 );
     ahrs.setPen( Qt::white );
-    if( g_situation.dBaroPressAlt < 10000.0 )
+    if( g_situation.dGPSAltMSL < 10000.0 )
         ahrs.setFont( tiny );
     else
     {
@@ -1088,9 +1088,9 @@ void AHRSCanvas::paintPortrait()
         ahrs.setFont( weeBold );   // 5 digits won't quite fit
     }
 #if defined( Q_OS_ANDROID )
-    ahrs.drawText( c.dW - c.dW5 + m_pCanvas->scaledH( 4 ), c.dH4 + (c.iSmallFontHeight / 2) - m_pCanvas->scaledV( 9.0 ), QString::number( static_cast<int>( g_situation.dBaroPressAlt ) ) );
+    ahrs.drawText( c.dW - c.dW5 + m_pCanvas->scaledH( 4 ), c.dH4 + (c.iSmallFontHeight / 2) - m_pCanvas->scaledV( 9.0 ), QString::number( static_cast<int>( g_situation.dGPSAltMSL ) ) );
 #else
-    ahrs.drawText( c.dW - c.dW5 + m_pCanvas->scaledH( 4 ), c.dH4 + (c.iSmallFontHeight / 2) - m_pCanvas->scaledV( 6.0 ), QString::number( static_cast<int>( g_situation.dBaroPressAlt ) ) );
+    ahrs.drawText( c.dW - c.dW5 + m_pCanvas->scaledH( 4 ), c.dH4 + (c.iSmallFontHeight / 2) - m_pCanvas->scaledV( 6.0 ), QString::number( static_cast<int>( g_situation.dGPSAltMSL ) ) );
 #endif
     // Draw the Speed tape
     ahrs.fillRect( 0, 0, c.dW10 + 5.0, c.dH2, QColor( 0, 0, 0, 100 ) );
@@ -1519,7 +1519,7 @@ void AHRSCanvas::paintLandscape()
     ahrs.fillRect( QRectF( c.dW - c.dW5 - m_pCanvas->scaledH( 10.0 ), 0.0, c.dW5 - m_pCanvas->scaledH( 30.0 ), c.dH ), QColor( 0, 0, 0, 100 ) );
 #endif
     ahrs.setClipRect( c.dW - c.dW5 - m_pCanvas->scaledH( 10.0 ), 2.0, c.dW5 + m_pCanvas->scaledH( 10.0 ), c.dH - 5 );
-    ahrs.drawPixmap( c.dW - c.dW5 - m_pCanvas->scaledH( 10.0 ), c.dH2 - (static_cast<double>( c.iTinyFontHeight ) * 1.5) - (((20000.0 - g_situation.dBaroPressAlt) / 20000.0) * m_pAltTape->height()) + m_pCanvas->scaledV( 7 ), *m_pAltTape );
+    ahrs.drawPixmap( c.dW - c.dW5 - m_pCanvas->scaledH( 10.0 ), c.dH2 - (static_cast<double>( c.iTinyFontHeight ) * 1.5) - (((20000.0 - g_situation.dGPSAltMSL) / 20000.0) * m_pAltTape->height()) + m_pCanvas->scaledV( 7 ), *m_pAltTape );
     ahrs.setClipping( false );
 
     // Draw the vertical speed static pixmap
@@ -1592,7 +1592,7 @@ void AHRSCanvas::paintLandscape()
     ahrs.setPen( QPen( Qt::white, c.iThinPen ) );
     ahrs.setBrush( Qt::black );
     ahrs.drawRect( c.dW - c.dW5 - m_pCanvas->scaledH( 10.0 ), c.dH2 - (c.iSmallFontHeight / 2), c.dW5 - m_pCanvas->scaledH( 23.0 ), c.iSmallFontHeight + 1 );
-    if( g_situation.dBaroPressAlt < 10000.0 )
+    if( g_situation.dGPSAltMSL < 10000.0 )
         ahrs.setFont( tiny );
     else
     {
@@ -1601,9 +1601,9 @@ void AHRSCanvas::paintLandscape()
         ahrs.setFont( weeBold );   // 5 digits won't quite fit
     }
 #if defined( Q_OS_ANDROID )
-    ahrs.drawText( c.dW - c.dW5 - m_pCanvas->scaledH( 8.0 ), c.dH2 + (c.iSmallFontHeight / 2) - m_pCanvas->scaledV( 11.0 ), QString::number( static_cast<int>( g_situation.dBaroPressAlt ) ) );
+    ahrs.drawText( c.dW - c.dW5 - m_pCanvas->scaledH( 8.0 ), c.dH2 + (c.iSmallFontHeight / 2) - m_pCanvas->scaledV( 11.0 ), QString::number( static_cast<int>( g_situation.dGPSAltMSL ) ) );
 #else
-    ahrs.drawText( c.dW - c.dW5 - m_pCanvas->scaledH( 8.0 ), c.dH2 + (c.iSmallFontHeight / 2) - m_pCanvas->scaledV( 6.0 ), QString::number( static_cast<int>( g_situation.dBaroPressAlt ) ) );
+    ahrs.drawText( c.dW - c.dW5 - m_pCanvas->scaledH( 8.0 ), c.dH2 + (c.iSmallFontHeight / 2) - m_pCanvas->scaledV( 6.0 ), QString::number( static_cast<int>( g_situation.dGPSAltMSL ) ) );
 #endif
     // Draw the Speed tape
     ahrs.fillRect( QRectF( 0.0, 0.0, c.dW5 - m_pCanvas->scaledH( 25.0 ), c.dH ), QColor( 0, 0, 0, 100 ) );
